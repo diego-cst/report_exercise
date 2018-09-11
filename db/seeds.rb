@@ -1,7 +1,22 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+require 'csv'
+
+# puts "Destroying all reports..."
+# Report.destroy_all
+
+# puts "Resetting IDs..."
+# ActiveRecord::Base.connection.tables.each do |t|
+#   ActiveRecord::Base.connection.reset_pk_sequence!(t)
+# end
+
+puts "Creating reports..."
+
+CSV.foreach('db/csv/report.csv', headers: :first_row) do |row|
+  # report_found = Report.where(raw_id: row[1])
+  # unless report_found
+    Report.create!(raw_time: row[0], raw_id: row[1], device_type: row[2], status: row[3])
+  # end
+end
+
+puts "Created #{Report.all.length} reports"
+
+
