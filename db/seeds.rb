@@ -11,12 +11,17 @@ require 'csv'
 puts "Creating reports..."
 
 CSV.foreach('db/csv/report.csv', headers: :first_row) do |row|
-  # report_found = Report.where(raw_id: row[1])
-  # unless report_found
-    Report.create!(raw_time: row[0], raw_id: row[1], device_type: row[2], status: row[3])
-  # end
+  device_found = Device.where(raw_id: row[1])
+  if device_found
+    report = Report.new(raw_time: row[0], status: row[3])
+    report.device = device_found
+  else
+    device = Device.create!(raw_id: row[1], device_type: row[2])
+    report = Report.new(raw_time: row[0], status: row[3])
+    report.device = device
+  end
 end
 
-puts "Created #{Report.all.length} reports"
+puts "Created #{Device.all.length} devices and #{Report.all.length} reports"
 
 

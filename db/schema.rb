@@ -10,18 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_11_081707) do
+ActiveRecord::Schema.define(version: 2018_09_11_151625) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "reports", force: :cascade do |t|
-    t.datetime "raw_time"
-    t.string "device_type"
-    t.boolean "status"
+  create_table "devices", force: :cascade do |t|
+    t.string "type"
     t.string "raw_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
+  create_table "reports", force: :cascade do |t|
+    t.datetime "raw_time"
+    t.boolean "status"
+    t.bigint "device_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["device_id"], name: "index_reports_on_device_id"
+  end
+
+  add_foreign_key "reports", "devices"
 end

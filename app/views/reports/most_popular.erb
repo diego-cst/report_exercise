@@ -1,15 +1,1 @@
 <p>Most popular</p>
-
-<% if @reports.present? %>
-  <ol>
-    <% @reports.each do |report| %>
-      <li>
-        <%=  report.first %>
-        <p><%= report[1] %> occurences</p>
-      </li>
-    <% end %>
-  </ol>
-
-<% else %>
-  <p> No reports for the given day </p>
-<% end %>
