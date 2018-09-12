@@ -7,13 +7,14 @@
       <th>Occurences 7 days ago</th>
       <th>Delta occurences (%)</th>
     </tr>
-    <% @most_popular.each do |report| %>
+    <% @most_popular.each do |device_id, popularity| %>
+      <% device = Device.find(device_id) %>
       <tr>
-        <td><%= report.device.raw_id %></td>
-        <td><%= report.device.popularity(report.raw_time) %></td>
-        <td><%= report.device.popularity(report.raw_time - 7.days) %></td>
+        <td><%= device.raw_id %></td>
+        <td><%= device.popularity(@date) %></td>
+        <td><%= device.popularity(@date - 7.days) %></td>
 
-        <td><%= report.device.delta_popularity(report.raw_time - 7.days, report.raw_time)%></td>
+        <td><%= device.delta_popularity(@date - 7.days, @date)%></td>
       </tr>
     <% end %>
 <% else %>

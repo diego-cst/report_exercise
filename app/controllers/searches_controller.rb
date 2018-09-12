@@ -1,22 +1,26 @@
 class SearchesController < ApplicationController
+before_action :set_date
+
   def most_popular
+    reports_on_date_by_device = Report.reports_on_date(@date).group("device_id").count.take(10)
+    @most_popular = reports_on_date_by_device.sort_by { |device_id, popularity| -popularity}
+  end
+
+  def device_per_day(device_type, device_status)
+    device_type = params[:device_type]
+    device_status = params[:device_status]
+
+    Report.reports_on_date(@date).where(device_type: device_type).where(status: device_status)
+  end
+
+  private
+
+  def set_date
     year = params[:date][:year]
     month = params[:date][:month]
     day = params[:date][:day]
 
     @date = Date.parse("#{day}-#{month}-#{year}")
-
-    reports_on_date = Report.where('extract(year from reports.raw_time) = ?', year)
-                            .where('extract(month from reports.raw_time) = ?', month)
-                            .where('extract(day from reports.raw_time) = ?', day).take(10)
-    # => returns array of report objects
-    @most_popular = reports_on_date.sort_by { |report| -report.device.popularity(@date)}
   end
+
 end
-
-
-
- # devices_on_date = Report.where('extract(year from reports.raw_time) = ?', 2017)
-    #                   .where('extract(month from reports.raw_time) = ?', 5)
-    #                   .where('extract(day from reports.raw_time) = ?', 1).group(:device_id).count
-                      # => {1=>8, 2=>7}

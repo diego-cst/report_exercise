@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 2018_09_11_151625) do
 
   create_table "reports", force: :cascade do |t|
     t.datetime "raw_time"
-    t.boolean "status"
+    t.string "status"
     t.bigint "device_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

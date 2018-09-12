@@ -22,7 +22,7 @@ class Device < ApplicationRecord
     else
       delta = (((date_2_reports - date_1_reports)/date_1_reports)*100).round(2)
     end
-    return delta
+    delta
   end
 
 end

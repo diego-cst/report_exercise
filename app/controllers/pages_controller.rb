@@ -6,5 +6,7 @@ class PagesController < ApplicationController
   end
 
   def view_2
+    @device_types = Device.distinct.pluck(:device_type)
+    @statuses = Report.distinct.pluck(:status)
   end
 end

@@ -1,0 +1,16 @@
+<%= form_tag devices_per_day_path, method: :get do %>
+  <select name="device_type">
+    <option selected disabled hidden>Select a device type</option>
+    <% @device_types.each do |device_type| %>
+      <option value="<%= device_type %>"><%= device_type %></option>
+    <% end %>
+  </select>
+  <select name="device_status">
+    <option selected disabled hidden>Select a device status</option>
+    <% @statuses.each do |status| %>
+      <option value="<%= status %>"><%= status %></option>
+    <% end %>
+  </select>
+  <%= select_date()%>
+<%= submit_tag %>
+<% end %>
