@@ -1,0 +1,23 @@
+<p>Most popular</p>
+<% if @most_popular.present? %>
+  <table style="width: 100%">
+    <tr>
+      <th>Device ID</th>
+      <th>Occurences on date</th>
+      <th>Occurences 7 days ago</th>
+      <th>Delta occurences (%)</th>
+    </tr>
+    <% @most_popular.each do |report| %>
+      <tr>
+        <td><%= report.device.raw_id %></td>
+        <td><%= report.device.popularity(report.raw_time) %></td>
+        <td><%= report.device.popularity(report.raw_time - 7.days) %></td>
+
+        <td><%= report.device.delta_popularity(report.raw_time - 7.days, report.raw_time)%></td>
+      </tr>
+    <% end %>
+<% else %>
+  <p><%= "No occurences on #{@date}"%> </p>
+<% end %>
+
+

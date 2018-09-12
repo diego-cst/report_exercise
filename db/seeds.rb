@@ -8,17 +8,19 @@ require 'csv'
 #   ActiveRecord::Base.connection.reset_pk_sequence!(t)
 # end
 
-puts "Creating reports..."
+puts "Creating devices and reports..."
 
 CSV.foreach('db/csv/report.csv', headers: :first_row) do |row|
-  device_found = Device.where(raw_id: row[1])
+  device_found = Device.where(raw_id: row[1]).first
   if device_found
     report = Report.new(raw_time: row[0], status: row[3])
     report.device = device_found
+    report.save
   else
     device = Device.create!(raw_id: row[1], device_type: row[2])
     report = Report.new(raw_time: row[0], status: row[3])
     report.device = device
+    report.save
   end
 end
 

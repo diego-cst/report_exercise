@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 2018_09_11_151625) do
   enable_extension "plpgsql"
 
   create_table "devices", force: :cascade do |t|
-    t.string "type"
+    t.string "device_type"
     t.string "raw_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
