@@ -1,13 +1,4 @@
 require 'csv'
-
-# puts "Destroying all reports..."
-# Report.destroy_all
-
-# puts "Resetting IDs..."
-# ActiveRecord::Base.connection.tables.each do |t|
-#   ActiveRecord::Base.connection.reset_pk_sequence!(t)
-# end
-
 puts "Creating devices and reports..."
 
 CSV.foreach('db/csv/report.csv', headers: :first_row) do |row|
