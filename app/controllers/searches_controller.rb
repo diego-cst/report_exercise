@@ -3,8 +3,8 @@ class SearchesController < ApplicationController
 before_action :set_date
 
   def most_popular
-    reports_on_date_by_device = Report.reports_on_date(@date).group("device_id").count.take(10)
-    @most_popular = reports_on_date_by_device.sort_by { |device_id, popularity| -popularity}
+    reports_on_date_by_device = Report.reports_on_date(@date).group("device_id").count
+    @most_popular = reports_on_date_by_device.sort_by { |device_id, popularity| -popularity}.take(10)
   end
 
   def devices_per_day
