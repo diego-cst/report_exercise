@@ -19,6 +19,7 @@
     <% end %>
 <% else %>
   <p><%= "No occurences on #{@date.strftime("%b %d, %Y")}" %> </p>
+  <%= link_to "< Back", view_1_path %>
 <% end %>
 
 
