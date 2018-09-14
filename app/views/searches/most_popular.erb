@@ -1,10 +1,10 @@
-<p>Most popular</p>
 <% if @most_popular.present? %>
+  <h2>Most popular devices on <%= "#{@date.strftime("%b %d, %Y")}" %></h2>
   <table style="width: 100%">
     <tr>
       <th>Device ID</th>
-      <th>Occurences on date</th>
-      <th>Occurences 7 days ago</th>
+      <th>Occurences</th>
+      <th>Occurences on <%= "#{(@date - 7.days).strftime("%b %d, %Y")}"%></th>
       <th>Delta occurences (%)</th>
     </tr>
     <% @most_popular.each do |device_id, popularity| %>
@@ -18,7 +18,7 @@
       </tr>
     <% end %>
 <% else %>
-  <p><%= "No occurences on #{@date}"%> </p>
+  <p><%= "No occurences on #{@date.strftime("%b %d, %Y")}" %> </p>
 <% end %>
 
 

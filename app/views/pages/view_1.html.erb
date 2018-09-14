@@ -1,4 +1,5 @@
+<p>Select a date:</p>
 <%= form_tag most_popular_path, method: :get do%>
   <%= select_date()%>
-  <%= submit_tag %>
+  <%= submit_tag("Search", class:  "btn btn-primary") %>
 <% end %>

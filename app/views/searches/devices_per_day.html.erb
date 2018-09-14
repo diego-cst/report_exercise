@@ -1,12 +1,16 @@
 
 <% if @results.present? %>
-  <ul>
-    <% @results.each do |date, count| %>
-      <li>
-        <%= date %>
-        <%= count %>
-      </li>
-    <% end %>
-  </ul>
+  <table style="width: 50%">
+      <tr>
+        <th>Day</th>
+        <th>Number of <%= "#{@device_status} #{@device_type}s " %></th>
+      </tr>
+      <% @results.each do |date, count| %>
+        <tr>
+          <td><%= date %></td>
+          <td><%= count %></td>
+        </tr>
+      <% end %>
+  </table>
 <% end %>
 

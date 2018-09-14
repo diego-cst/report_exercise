@@ -6,12 +6,12 @@ CSV.foreach('db/csv/report.csv', headers: :first_row) do |row|
   if device_found
     report = Report.new(raw_time: row[0], status: row[3])
     report.device = device_found
-    report.save
+    report.save!
   else
     device = Device.create!(raw_id: row[1], device_type: row[2])
     report = Report.new(raw_time: row[0], status: row[3])
     report.device = device
-    report.save
+    report.save!
   end
 end
 

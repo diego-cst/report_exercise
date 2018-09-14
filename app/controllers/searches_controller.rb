@@ -1,4 +1,3 @@
-require 'pry-byebug'
 class SearchesController < ApplicationController
 before_action :set_date
 
@@ -8,11 +7,11 @@ before_action :set_date
   end
 
   def devices_per_day
-    device_type = params[:device_type]
-    device_status = params[:device_status]
+    @device_type = params[:device_type]
+    @device_status = params[:device_status]
     @results = {}
     for i in (0..30) do
-      device_count = Report.joins(:device).where('devices.device_type = ?', device_type).where('reports.status = ?', device_status)
+      device_count = Report.joins(:device).where('devices.device_type = ?', @device_type).where('reports.status = ?', @device_status)
                           .where('extract(year from reports.raw_time) = ?', @date.year)
                           .where('extract(month from reports.raw_time) = ?', @date.month)
                           .where('extract(day from reports.raw_time) = ?', @date.day).count
