@@ -3,7 +3,10 @@
   <table style="width: 50%">
       <tr>
         <th>Day</th>
-        <th>Number of <%= "#{@device_status} #{@device_type}s " %></th>
+        <th>Number of
+        <%= "#{@device_status} #{@device_type}s from #{@results.keys.first.strftime("%b %d, %Y")}
+            to #{@results.keys.last.strftime("%b %d, %Y")}" %>
+        </th>
       </tr>
       <% @results.each do |date, count| %>
         <tr>
