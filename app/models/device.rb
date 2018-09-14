@@ -1,16 +1,11 @@
 class Device < ApplicationRecord
   has_many :reports
 
-  def popularity(given_date)
-    date = given_date.to_date
-    year = date.year
-    month = date.month
-    day = date.day
-
-    Report.where('extract(year from reports.raw_time) = ?', year)
-                       .where('extract(month from reports.raw_time) = ?', month)
-                       .where('extract(day from reports.raw_time) = ?', day)
-                       .where(device_id: self.id).count
+  def popularity(date)
+    Report.where('extract(year from reports.raw_time) = ?', date.year)
+          .where('extract(month from reports.raw_time) = ?', date.month)
+          .where('extract(day from reports.raw_time) = ?', date.day)
+          .where(device_id: self.id).count
   end
 
   def delta_popularity(date_1, date_2)
