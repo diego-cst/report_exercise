@@ -1,8 +1,10 @@
 # Reporting exercise
 
-A simple Rails app to display 2 reporting views based on data extracted from a csv file.
+A simple unstyled Rails app to display 2 reporting views based on data extracted from a csv file.
 
 ## Getting Started
+
+Install the dependencies with `bundle install`.
 
 Extract the csv data to seed the database by running `rails:db seed`.
 
