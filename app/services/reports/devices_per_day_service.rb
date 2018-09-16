@@ -16,8 +16,12 @@ module Reports
 
     private
 
+    def filter_by_date
+      @scope = Report.reports_per_day(date)
+    end
+
     def filter_by_device_type
-      @scope = Report.joins(:device)
+      @scope = @scope.joins(:device)
                      .where('devices.device_type = ?', device_type)
     end
 
@@ -25,21 +29,19 @@ module Reports
       @scope = @scope.where('reports.status = ?', device_status)
     end
 
-
-    def filter_by_date
-      @scope = @scope.where('extract(year from reports.raw_time) = ?', date.year)
-                    .where('extract(month from reports.raw_time) = ?', date.month)
-                    .where('extract(day from reports.raw_time) = ?', date.day).count
+    def device_count
+      @scope = @scope.count
     end
 
     def result
       results = {}
 
       for i in (0..30) do
+        filter_by_date
         filter_by_device_type
         filter_by_device_status
 
-        results[@date] = filter_by_date
+        results[@date] = device_count
         @date -= 1
       end
 
