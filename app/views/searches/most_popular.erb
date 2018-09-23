@@ -1,4 +1,4 @@
-<% if @most_popular.present? %>
+<% if @result.present? %>
   <h2>Most popular devices on <%= "#{@date.strftime("%b %d, %Y")}" %></h2>
   <table style="width: 100%">
     <tr>
@@ -7,11 +7,10 @@
       <th>Occurences on <%= "#{(@date - 7.days).strftime("%b %d, %Y")}"%></th>
       <th>Delta occurences (%)</th>
     </tr>
-    <% @most_popular.each do |device_id, popularity| %>
-      <% device = Device.find(device_id) %>
+    <% @result.each do |device, popularity| %>
       <tr>
         <td><%= device.raw_id %></td>
-        <td><%= device.popularity(@date) %></td>
+        <td><%= popularity %></td>
         <td><%= device.popularity(@date - 7.days) %></td>
 
         <td><%= device.delta_popularity(@date - 7.days, @date)%></td>

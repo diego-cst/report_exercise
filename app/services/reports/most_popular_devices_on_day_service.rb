@@ -12,6 +12,7 @@ module Reports
       filter_reports_by_date
       count_by_device
       order_by_popularity
+      result
     end
 
     private
@@ -28,6 +29,14 @@ module Reports
 
     def order_by_popularity
       @scope = @scope.sort_by { |device_id, popularity| -popularity}
+    end
+
+    def result
+      @result = {}
+      @scope.take(10).each do |device_id, popularity|
+        @result[Device.find(device_id)] = popularity
+      end
+      @result
     end
 
   end

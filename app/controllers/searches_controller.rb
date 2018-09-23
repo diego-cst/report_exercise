@@ -2,7 +2,7 @@ class SearchesController < ApplicationController
 before_action :set_date
 
   def most_popular
-    @most_popular = Reports::MostPopularDevicesOnDayService.new(@date).call.take(10)
+    @result = Reports::MostPopularDevicesOnDayService.new(@date).call
   end
 
   def devices_per_day
